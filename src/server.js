@@ -32,14 +32,16 @@ app.use(cors({
       process.env.FRONTEND_URL,
     ].filter(Boolean);
 
+    console.log('CORS Origin:', origin); // 👈 helpful for debugging
+
     if (!origin || allowed.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error(`Not allowed by CORS: ${origin}`));
     }
   },
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // ── Body Parsing ──────────────────────────────────────────────────────────────
